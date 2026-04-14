@@ -23,3 +23,5 @@ jobs:
       # 👇 now this works
       - run: pnpm install
       - run: pnpm run build
+        env:
+          PORT: 3000
