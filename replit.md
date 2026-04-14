@@ -4,6 +4,19 @@
 
 pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
 
+## Artifacts
+
+### Yahtzee (`artifacts/yahtzee`)
+Two-player local Yahtzee game built with React + Vite. Pure frontend, no backend required.
+- Full Yahtzee rules: 13 categories, upper bonus (+35 for 63+), 3 rolls per turn
+- 5 animated dice with hold mechanic (tap to hold between rolls)
+- Live score preview on hover before committing
+- Score card for both players visible at all times
+- Turn-based: alternates between Player 1 and Player 2
+- Game over screen with winner announcement
+- Mobile-first responsive design
+- Preview path: `/`
+
 ## Stack
 
 - **Monorepo tool**: pnpm workspaces
