@@ -28,13 +28,8 @@ export default function ScoreRow({
   isYahtzeeBonus = false,
 }: ScoreRowProps) {
   const currentCard = scoreCards[currentPlayer];
-  const otherCard = scoreCards[currentPlayer === 0 ? 1 : 0];
-
-  const currentScore = currentCard[category];
-  const otherScore = otherCard[category];
   const available = isCategoryAvailable(currentCard, category);
   const potential = available && hasRolled ? calculateScore(category, dice) : null;
-
   const canClick = available && hasRolled;
 
   return (
@@ -58,27 +53,29 @@ export default function ScoreRow({
         </div>
       </td>
 
+      {/* Player 1 column — always uses scoreCards[0] */}
       <td className="px-2 py-1.5 text-center w-16">
         {currentPlayer === 0 ? (
           <ScoreCell
-            score={currentScore}
+            score={scoreCards[0][category]}
             potential={potential}
             canClick={canClick}
           />
         ) : (
-          <OtherPlayerScore score={currentScore} />
+          <FilledScore score={scoreCards[0][category]} />
         )}
       </td>
 
+      {/* Player 2 column — always uses scoreCards[1] */}
       <td className="px-2 py-1.5 text-center w-16">
         {currentPlayer === 1 ? (
           <ScoreCell
-            score={currentScore}
+            score={scoreCards[1][category]}
             potential={potential}
             canClick={canClick}
           />
         ) : (
-          <OtherPlayerScore score={otherScore} />
+          <FilledScore score={scoreCards[1][category]} />
         )}
       </td>
     </tr>
@@ -95,9 +92,7 @@ function ScoreCell({
   canClick: boolean;
 }) {
   if (score !== undefined) {
-    return (
-      <span className="font-bold text-sm text-foreground">{score}</span>
-    );
+    return <span className="font-bold text-sm text-foreground">{score}</span>;
   }
   if (potential !== null) {
     return (
@@ -117,7 +112,7 @@ function ScoreCell({
   return <span className="text-muted-foreground text-xs">—</span>;
 }
 
-function OtherPlayerScore({ score }: { score: number | undefined }) {
+function FilledScore({ score }: { score: number | undefined }) {
   if (score !== undefined) {
     return <span className="text-sm text-muted-foreground">{score}</span>;
   }
