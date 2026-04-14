@@ -16,5 +16,10 @@ jobs:
         with:
           node-version: 18
 
+      # 👇 ADD THIS STEP
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      # 👇 now this works
       - run: pnpm install
       - run: pnpm run build
