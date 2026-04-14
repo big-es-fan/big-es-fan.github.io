@@ -27,7 +27,7 @@ export default function Die({ value, held, rolling, disabled, index, onToggle }:
       setAnimate(true);
       const t = setTimeout(() => setAnimate(false), 400);
       return () => clearTimeout(t);
-    }
+    } return;
   }, [rolling]);
 
   const dots = DOT_POSITIONS[value] ?? [];
