@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,13 +20,26 @@ jobs:
         with:
           node-version: 22
 
-      # 👇 ADD THIS STEP
       - name: Install pnpm
         run: npm install -g pnpm
 
-      # 👇 now this works
       - run: pnpm install
+
       - run: pnpm run build
         env:
           PORT: 3000
           BASE_PATH: /
+
+      # 🚨 THIS IS THE IMPORTANT PART
+      - name: Upload build
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./artifacts/yahtzee/dist   # 👈 CHANGE THIS if needed
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Pages
+        uses: actions/deploy-pages@v2
